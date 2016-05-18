@@ -12,6 +12,12 @@ namespace Game1
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+
+        //Different game states
+        public enum GameState { Title, Collect, Boss, Pause, End };
+        GameState gamestate = GameState.Title;
+
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -29,6 +35,7 @@ namespace Game1
             // TODO: Add your initialization logic here
 
             base.Initialize();
+            
         }
 
         /// <summary>
@@ -39,7 +46,7 @@ namespace Game1
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            
             // TODO: use this.Content to load your game content here
         }
 
@@ -62,8 +69,39 @@ namespace Game1
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
 
+
+            if (gamestate == GameState.Title)
+            {
+                Shortcut shortcut = new Shortcut();
+                gamestate =  shortcut.PerformShortcut(gamestate);
+            }
+
+            if (gamestate == GameState.Collect)
+            {
+                Shortcut shortcut = new Shortcut();
+                gamestate = shortcut.PerformShortcut(gamestate);
+            }
+
+            if (gamestate == GameState.Pause)
+            {
+                Shortcut shortcut = new Shortcut();
+                gamestate = shortcut.PerformShortcut(gamestate);
+            }
+
+            if (gamestate == GameState.Boss)
+            {
+                Shortcut shortcut = new Shortcut();
+                gamestate = shortcut.PerformShortcut(gamestate);
+            }
+
+            if (gamestate == GameState.End)
+            {
+                Shortcut shortcut = new Shortcut();
+                gamestate = shortcut.PerformShortcut(gamestate);
+            }
+
+            
             base.Update(gameTime);
         }
 
@@ -73,7 +111,32 @@ namespace Game1
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+
+            if (gamestate == GameState.Title)
+            {
+                GraphicsDevice.Clear(Color.Blue);
+            }
+
+            if (gamestate == GameState.Collect)
+            {
+                GraphicsDevice.Clear(Color.Red);
+            }
+
+            if (gamestate == GameState.Pause)
+            {
+                GraphicsDevice.Clear(Color.Gray);
+            }
+
+            if (gamestate == GameState.Boss)
+            {
+                GraphicsDevice.Clear(Color.Purple);
+            }
+
+            if (gamestate == GameState.End)
+            {
+                GraphicsDevice.Clear(Color.Black);
+            }
+           
 
             // TODO: Add your drawing code here
 
